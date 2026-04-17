@@ -54,4 +54,4 @@ def handle_message(message):
         bot.reply_to(message, f"Error en el sistema en la nube: {e}")
 
 # Iniciar el bot
-bot.polling()
+bot.polling(none_stop=True)
