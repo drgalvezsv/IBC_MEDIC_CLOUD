@@ -5,7 +5,10 @@ import os
 # --- CONFIGURACIÓN ---
 # Leemos las llaves que pusiste en Render (Environment Variables)
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
-GROQ_API_KEY = os.environ.get('GROQ_API_KEY')
+# Después (lo nuevo):
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+# ...
+api_key=OPENAI_API_KEY
 
 # Configuración del cliente OpenAI (Groq)
 client = OpenAI(
