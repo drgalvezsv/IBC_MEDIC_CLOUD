@@ -3,17 +3,13 @@ from openai import OpenAI
 import os
 
 # --- CONFIGURACIÓN ---
-# Leemos las llaves que pusiste en Render (Environment Variables)
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
-# Después (lo nuevo):
-OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
-# ...
-OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+GROQ_API_KEY = os.environ.get('GROQ_API_KEY')
 
-# Configuración del cliente OpenAI (Groq)
+# Configuración del cliente Groq
 client = OpenAI(
     base_url="https://api.groq.com/openai/v1",
-    api_key=OPENAI_API_KEY
+    api_key=GROQ_API_KEY
 )
 
 # Modelo a usar (Llama 3 70B - Ultra rápido y potente)
@@ -26,7 +22,7 @@ print("🚀 IBC MEDIC CLOUD Iniciado correctamente...")
 # Personalidad del Bot
 SYSTEM_PROMPT = """
 Eres el asistente médico IBC_MEDIC_CLOUD.
-Eres un experto en medicina interna y urgencias.
+Eres un experto en medicina interna, urgencias y medicina integrativa.
 Tus respuestas deben ser directas, con tono profesional y técnico.
 Siempre responde en español.
 """
@@ -36,11 +32,11 @@ def handle_message(message):
     try:
         chat_id = message.chat.id
         user_text = message.text
-        
+
         # Indicar que está escribiendo
         bot.send_chat_action(chat_id, 'typing')
-        
-        # Consulta a Groq (La IA en la nube)
+
+        # Consulta a Groq
         response = client.chat.completions.create(
             model=MODEL_NAME,
             messages=[
@@ -49,12 +45,12 @@ def handle_message(message):
             ],
             temperature=0.6
         )
-        
+
         respuesta = response.choices[0].message.content
         bot.reply_to(message, respuesta)
-        
-    except Exception as e:
-        bot.reply_to(message, f"Error en el sistema en la nube: {e}")
 
-# Iniciar el bot con modo "nuestop" (para que nunca se apague por errores pequeños)
+    except Exception as e:
+        bot.reply_to(message, f"Error en el sistema: {e}")
+
+# Iniciar el bot
 bot.polling(none_stop=True)
