@@ -8,12 +8,12 @@ BOT_TOKEN = os.environ.get('BOT_TOKEN')
 # Después (lo nuevo):
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 # ...
-api_key=OPENAI_API_KEY
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
 # Configuración del cliente OpenAI (Groq)
 client = OpenAI(
     base_url="https://api.groq.com/openai/v1",
-    api_key=GROQ_API_KEY
+    api_key=OPENAI_API_KEY
 )
 
 # Modelo a usar (Llama 3 70B - Ultra rápido y potente)
